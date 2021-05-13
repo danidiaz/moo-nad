@@ -1,6 +1,19 @@
+{-# LANGUAGE KindSignatures #-}
 signature Moo where
 
-data M
-data E
-data D
+import Control.Monad
+import Data.Kind
+
+data M :: Type -> Type
+instance Functor M
+instance Applicative M
+instance Monad M
+
+data E :: Type
+
+askE :: M E
+
+data D :: Type -> Type
+
+liftD :: D x -> M x
 

@@ -1,0 +1,15 @@
+cabal-version:      2.4
+name:               moo-nad
+version:            0.1.0.0
+
+author:             Daniel Diaz
+maintainer:         diaz_carrete@yahoo.com
+
+extra-source-files: CHANGELOG.md
+
+library
+    exposed-modules:  Moo.Prelude
+    build-depends:    base ^>=4.15.0.0
+    hs-source-dirs:   lib
+    default-language: Haskell2010
+

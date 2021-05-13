@@ -1,0 +1,6 @@
+signature Moo where
+
+type M
+type E
+type D
+

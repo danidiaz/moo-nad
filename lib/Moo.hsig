@@ -1,19 +1,26 @@
 {-# LANGUAGE KindSignatures #-}
+-- | A signature for reader-like monads carrying a record-of-functions as
+-- environment.
 signature Moo where
 
 import Control.Monad
 import Data.Kind
 
+-- | A readerlike monad.
 data M :: Type -> Type
 instance Functor M
 instance Applicative M
 instance Monad M
 
+-- | The monad environment.
 data E :: Type
 
+-- | Gets the environment form the readerlike monad.
 askE :: M E
 
+-- | The monad in which the functions in the environment have their effects.
 data D :: Type -> Type
 
+-- | Lifts an effects from the secondary monad 'D' into 'M'.
 liftD :: D x -> M x
 

@@ -2,6 +2,7 @@ module Main where
 
 import Test.Tasty
 import Test.Tasty.HUnit
+import Data.IORef
 
 import LogicThatLogs
 import Moo
@@ -11,7 +12,11 @@ tests =
   testGroup
     "All"
     [ 
-        let test = runReaderT logic (EnvIO putStrLn)
+        let test = do
+                ref <- newIORef "" 
+                runReaderT logic (EnvIO (writeIORef ref))
+                msg <- readIORef ref
+                assertEqual "log output" "this is another message" msg
          in testCase "run logic" $ test
     ]
 

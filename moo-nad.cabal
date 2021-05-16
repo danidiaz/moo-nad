@@ -16,3 +16,15 @@ library
     hs-source-dirs:   lib
     default-language: Haskell2010
 
+library example-logic-that-logs
+    signatures:       Moo
+    exposed-modules:  LogicThatLogs
+    build-depends:    base ^>= 4.15.0.0
+    hs-source-dirs:   lib-example-logic-that-logs
+    default-language: Haskell2010
+
+library example-impl
+    exposed-modules:  Moo
+    build-depends:    base ^>= 4.15.0.0
+    hs-source-dirs:   lib-example-impl
+    default-language: Haskell2010

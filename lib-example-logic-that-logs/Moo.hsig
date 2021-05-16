@@ -1,0 +1,13 @@
+{-# LANGUAGE KindSignatures #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+signature Moo where
+
+import Data.Kind
+
+class HasLogger e d where
+    logger :: e -> String -> d ()
+
+data D :: Type -> Type  
+data E :: Type  
+instance HasLogger E D
+

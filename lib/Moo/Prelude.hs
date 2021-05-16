@@ -15,20 +15,20 @@ import Moo
 import Data.Kind
 import GHC.TypeLits
 
-type Multicurryable :: [Type] -> Type -> Type -> Constraint
-class Multicurryable as r curried | curried -> as r where
-    type LiftedD as r curried :: Type
-    call :: (E -> curried) -> LiftedD as r curried
+type Multicurryable :: Type -> Constraint
+class Multicurryable curried where
+    type LiftedD curried :: Type
+    call :: (E -> curried) -> LiftedD curried
 
-instance Multicurryable '[] r (D r) where
-    type LiftedD '[] r (D r) = M r
+instance Multicurryable (D r) where
+    type LiftedD (D r) = M r
     call extractor = do
         e <- askE
         liftD $ extractor e
 
-instance Multicurryable as r curried' => Multicurryable (a ': as) r (a -> curried') where
-    type LiftedD (a ': as) r (a -> curried') = a -> LiftedD as r curried'
+instance Multicurryable curried' => Multicurryable (a -> curried') where
+    type LiftedD (a -> curried') = a -> LiftedD curried'
     call extractor a = 
         let extractor' = \e -> extractor e a
-        in call @as @r @curried' extractor'
+        in call @curried' extractor'
 

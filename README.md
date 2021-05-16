@@ -14,7 +14,7 @@ worked fine. The also also included this comment:
 
 That got me thinking: is there a way to avoid tying the workings of the
 typeclass to a *concrete* monad, like `RIO`? Can the call-helper code be made
-to work with a variety of monads?
+to work with a variety of reader-like monads?
 
 After [a number of failed attempts](https://github.com/danidiaz/dep-t/issues/1)
 using a typeclass-only approach, I turned to the solution explored in this
@@ -22,6 +22,13 @@ repo: *abstract the monad which serves as a base case using a module
 signature*.
 
 That signature is called `Moo`, and the module `Moo.Prelude` provides the
-invocation helper typeclass.
+`call` helper method.
 
+We could concievably put program logic into indefinite libraries which depend
+on the `Moo` signature (perhaps expanded through [signature
+merging](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson3-signature-merging)).
+This would be a way of avoid depending on concrete monads—an alternative to
+MTL, which solves a similar problem.
+
+In practice though, this method might involve too much ceremony.
 

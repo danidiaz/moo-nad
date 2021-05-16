@@ -34,7 +34,7 @@ That signature is called `Moo`, and the module `Moo.Prelude` provides the
 `call` helper method.
 
 We could concievably put program logic into indefinite libraries which depend
-on the `Moo` signature (perhaps expanded through [signature
+on the `Moo` signature (possibly expanded through [signature
 merging](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson3-signature-merging)).
 This would be a way of avoid depending on concrete monads—an alternative to
 MTL, which solves a similar problem.

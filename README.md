@@ -14,7 +14,7 @@ like to simply be able to write:
         call logger "this is another message"
 
 I received [this answer](https://stackoverflow.com/a/61642757/1364288), which
-worked fine. The answer also included this comment:
+worked fine. The answer also included the following comment:
 
 > Implementing variadics with type classes is generally frowned upon because of
 > how fragile they are, but it works well here because the RIO type provides a

@@ -1,10 +1,16 @@
 {-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FunctionalDependencies #-}
+-- | Because the logic in this sub-library needs to know how to perform logging,
+--   we expand the signature through signature merging, defining a HasLogger
+--   typeclass and demanding that the environment has a suitable instance.
 signature Moo where
 
 import Data.Kind
 
+-- Perhaps surprisingly, typeclass definitions are allowed in signatures,
+-- methods and all. The corresponding definitions in the implementation
+-- modules must match exactly.
 class HasLogger e d | e -> d where
     logger :: e -> String -> d ()
 

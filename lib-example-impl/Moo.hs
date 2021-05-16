@@ -2,6 +2,7 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE NamedFieldPuns #-}
+-- | This is the implementation module for the signature of the same name.
 module Moo (module Moo, runReaderT) where
 
 import Data.Kind

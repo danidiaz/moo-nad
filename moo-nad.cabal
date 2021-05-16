@@ -10,16 +10,17 @@ extra-source-files: CHANGELOG.md
 common common
     build-depends:    base ^>= 4.15.0.0
 
+-- Indefinite library which provides an invocation helper over some abstract
+-- readerlike monad carrying a record-of-functions.
 library
     import:           common
     signatures:       Moo
     exposed-modules:  Moo.Prelude
     build-depends:    
---                    sop-core ^>= 0.5.0.0
---                    mtl ^>= 2.2
     hs-source-dirs:   lib
     default-language: Haskell2010
 
+-- Example indefinite program logic.
 library example-logic-that-logs
     import:           common
     signatures:       Moo
@@ -29,6 +30,7 @@ library example-logic-that-logs
     hs-source-dirs:   lib-example-logic-that-logs
     default-language: Haskell2010
 
+-- Example implementation library.
 library example-impl
     import:           common
     exposed-modules:  Moo
@@ -37,6 +39,8 @@ library example-impl
     hs-source-dirs:   lib-example-impl
     default-language: Haskell2010
 
+-- The tests put together the moo-nad library, the example indefinite package
+-- with the program logic, and the sublibrary with a possible implementation.
 test-suite tests
     import:           common
     type:             exitcode-stdio-1.0

@@ -1,10 +1,11 @@
 {-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE FunctionalDependencies #-}
 signature Moo where
 
 import Data.Kind
 
-class HasLogger e d where
+class HasLogger e d | e -> d where
     logger :: e -> String -> d ()
 
 data D :: Type -> Type  

@@ -30,7 +30,7 @@ using a typeclass-only approach, I turned to the solution explored in the curren
 repo: *abstract the monad which serves as the base case using a [module
 signature](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/separate_compilation.html#module-signatures)*.
 
-That signature is called `Moo`, and the module `Moo.Prelude` provides the
+That signature is called [`Moo`](./lib/Moo.hs), and the module [`Moo.Prelude`](./lib/Moo/Prelude.hs) provides the
 `call` helper method.
 
 We could concievably put program logic into indefinite libraries which depended

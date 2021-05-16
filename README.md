@@ -5,6 +5,14 @@ question](https://stackoverflow.com/questions/61642492/simplifying-the-invocatio
 I asked how to simplify the invocation of functions stored in a `ReaderT`
 environment.
 
+For example, when invoking a `logger` function from the environment, I would
+like to simply be able to write:
+
+    logic :: M ()
+    logic = do
+        call logger "this is a message"
+        call logger "this is another message"
+
 I received [this answer](https://stackoverflow.com/a/61642757/1364288), which
 worked fine. The also also included this comment:
 

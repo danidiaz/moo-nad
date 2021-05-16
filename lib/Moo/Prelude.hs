@@ -18,6 +18,8 @@ import GHC.TypeLits
 type Call :: Type -> Constraint
 class Call curried where
     type LiftedD curried :: Type
+    -- | Given a way of extracting a monadic function ending in 'D' from the
+    -- environment, lift the function to the main monad 'M'.
     call :: (E -> curried) -> LiftedD curried
 
 instance Call (D r) where

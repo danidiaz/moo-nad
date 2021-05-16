@@ -2,7 +2,7 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE NamedFieldPuns #-}
-module Moo where
+module Moo (module Moo, runReaderT) where
 
 import Data.Kind
 import Control.Monad.Trans.Class (lift)

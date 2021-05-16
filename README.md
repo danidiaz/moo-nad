@@ -26,7 +26,7 @@ typeclass to a *concrete* monad, like
 made to work with a variety of reader-like monads?
 
 After [a number of failed attempts](https://github.com/danidiaz/dep-t/issues/1)
-using a typeclass-only approach, I turned to the solution explored in this
+using a typeclass-only approach, I turned to the solution explored in the current
 repo: *abstract the monad which serves as the base case using a [module
 signature](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/separate_compilation.html#module-signatures)*.
 

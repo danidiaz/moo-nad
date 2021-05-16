@@ -13,8 +13,9 @@ worked fine. The also also included this comment:
 > natural base case
 
 That got me thinking: is there a way to avoid tying the workings of the
-typeclass to a *concrete* monad, like `RIO`? Can the call-helper code be made
-to work with a variety of reader-like monads?
+typeclass to a *concrete* monad, like
+[`RIO`](http://hackage.haskell.org/package/rio)? Can the call-helper code be
+made to work with a variety of reader-like monads?
 
 After [a number of failed attempts](https://github.com/danidiaz/dep-t/issues/1)
 using a typeclass-only approach, I turned to the solution explored in this

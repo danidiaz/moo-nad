@@ -9,7 +9,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Moo.Prelude (module Moo) where
+module Moo.Prelude (M, E, D, call) where
 
 import Moo
 import Data.Kind
@@ -28,20 +28,7 @@ instance Multicurryable '[] r (D r) where
 
 instance Multicurryable as r curried' => Multicurryable (a ': as) r (a -> curried') where
     type LiftedD (a ': as) r (a -> curried') = a -> LiftedD as r curried'
-    call extractor a = _
+    call extractor a = 
+        let extractor' = \e -> extractor e a
+        in call @as @r @curried' extractor'
 
--- class CurryliftD d m where
---   multiliftD :: d -> m
--- 
--- instance CurryliftD (D x) (M x) where
---   multiliftD = liftD
--- 
--- instance CurryliftD d m => MultiliftD (a -> d) (a -> m) where
---   multiliftD f a = multiliftD @d @m (f a)
--- 
--- class CurryjoinD curried where
--- 
--- call :: (E -> curryable) -> curriedTo 
-
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"

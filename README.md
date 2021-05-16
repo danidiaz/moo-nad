@@ -33,7 +33,7 @@ signature](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/separa
 That signature is called `Moo`, and the module `Moo.Prelude` provides the
 `call` helper method.
 
-We could concievably put program logic into indefinite libraries which depend
+We could concievably put program logic into indefinite libraries which depended
 on the `Moo` signature (possibly expanded through [signature
 merging](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson3-signature-merging)).
 This would be a way of avoid depending on concrete monads—an alternative to

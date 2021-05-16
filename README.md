@@ -5,7 +5,7 @@ question](https://stackoverflow.com/questions/61642492/simplifying-the-invocatio
 I asked how to simplify the invocation of functions stored in a `ReaderT`
 environment.
 
-For example, when invoking a `logger` function from the environment, I would
+For example, when invoking a [`logger`](./lib-example-logic-that-logs/LogicThatLogs.hs) function from the [environment](./lib-example-logic-that-logs/Moo.hsig), I would
 like to simply be able to write:
 
     logic :: M ()

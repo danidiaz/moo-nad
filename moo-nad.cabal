@@ -8,7 +8,9 @@ maintainer:         diaz_carrete@yahoo.com
 extra-source-files: CHANGELOG.md
 
 common common
-    build-depends:    base ^>= 4.15.0.0
+    build-depends:    base ^>= 4.15.0.0,
+                      mtl  ^>= 2.2,
+                      dep-t ^>= 0.4.4
 
 -- Indefinite library which provides an invocation helper over some abstract
 -- readerlike monad carrying a record-of-functions.

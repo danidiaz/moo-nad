@@ -10,8 +10,8 @@ like to simply be able to write:
 
     logic :: M ()
     logic = do
-        call logger "this is a message"
-        call logger "this is another message"
+        self logger "this is a message"
+        self logger "this is another message"
 
 I received [this answer](https://stackoverflow.com/a/61642757/1364288), which
 worked fine. The answer also included the following comment:
@@ -31,7 +31,7 @@ repo: *abstract the monad which serves as the base case using a [module
 signature](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/separate_compilation.html#module-signatures)*.
 
 That signature is called [`Moo`](./lib/Moo.hsig), and the module [`Moo.Prelude`](./lib/Moo/Prelude.hs) provides the
-`call` helper method.
+`self` helper method.
 
 We could concievably put program logic into indefinite libraries which depended
 on the `Moo` signature (possibly expanded through [signature

@@ -1,9 +1,10 @@
-{-# LANGUAGE KindSignatures #-}
+{-# LANGUAGE KindSignatures, MultiParamTypeClasses #-}
 -- | A signature for reader-like monads carrying a record-of-functions as
 -- environment.
 signature Moo where
 
 import Control.Monad
+import Control.Monad.Reader
 import Data.Kind
 
 -- | A readerlike monad.
@@ -14,9 +15,7 @@ instance Monad M
 
 -- | The monad environment.
 data E :: Type
-
--- | Gets the environment form the readerlike monad.
-askE :: M E
+instance MonadReader E M
 
 -- | The monad in which the functions in the environment have their effects.
 data D :: Type -> Type

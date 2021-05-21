@@ -7,5 +7,5 @@ import Moo.Prelude
 
 logic :: M ()
 logic = do
-    call logger "this is a message"
-    call logger "this is another message"
+    self logger "this is a message"
+    self logger "this is another message"

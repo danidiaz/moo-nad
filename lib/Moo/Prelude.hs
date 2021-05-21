@@ -23,8 +23,9 @@ import Control.Monad.Dep.Has
 type Call :: Type -> Constraint
 class Call curried where
     type LiftedD curried :: Type
-    -- | Given a way of extracting from the environment 'E' a function ending
-    -- in a 'D' action, lift the D-function into the main monad 'M'.
+    -- | Given a way of extracting from the environment 'E' a @curried@
+    -- function that ends in a 'D' action, lift the D-function into the main
+    -- monad 'M'.
     self :: (E -> curried) -> LiftedD curried
 
 instance Call (D r) where
@@ -39,9 +40,9 @@ instance Call curried' => Call (a -> curried') where
         let extractor' = \e -> extractor e a
         in self @curried' extractor'
 
--- | Given an environment that 'Has' a @component@, and a way of extracting from
--- the component a function ending in a 'D' action, lift the function into the
--- main monad 'M'.
+-- | Given an environment that 'Has' a @component@, and a way of extracting
+-- from the component a @curried@ function that ends in a 'D' action, lift the
+-- function into the main monad 'M'.
 call :: forall component curried . (Has component D E, Call curried) => (component D -> curried) -> LiftedD curried
 call extractor = self (extractor . dep @component)
 

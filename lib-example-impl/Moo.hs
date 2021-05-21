@@ -2,29 +2,35 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 -- | This is the implementation module for the signature of the same name.
 module Moo (module Moo, runReaderT) where
 
 import Data.Kind
 import Control.Monad.Trans.Class (lift)
 import Control.Monad.Trans.Reader
-
-class HasLogger e d | e -> d where
-    logger :: e -> String -> d ()
+import Control.Monad.Dep.Has
 
 type M = ReaderT EnvIO IO
-type D = IO
 type E = EnvIO
 
-data EnvIO = EnvIO {
-        _logger :: String -> IO ()
-    }
-instance HasLogger EnvIO IO where
-    logger (EnvIO {_logger}) = _logger
+class HasLogger d e | e -> d where
+    logger :: e -> String -> d ()
 
-askE :: M E
-askE = ask
+newtype Logger m = Logger { runLogger :: Int -> String -> m () }
 
+type D = IO
 liftD :: D x -> M x
 liftD = lift
+
+data EnvIO = EnvIO {
+        _logger :: String -> IO (),
+        _loggerComponent :: Logger IO
+    }
+
+instance HasLogger D E where
+    logger (EnvIO {_logger}) = _logger
+
+instance Has Logger D E where
+    dep (EnvIO {_loggerComponent}) = _loggerComponent
 

@@ -8,4 +8,4 @@ import Moo.Prelude
 logic :: M ()
 logic = do
     self logger "this is a message"
-    self logger "this is another message"
+    call runLogger 7 "this is another message"

@@ -7,14 +7,18 @@
 signature Moo where
 
 import Data.Kind
+import Control.Monad.Dep.Has
+
+data D :: Type -> Type  
+data E :: Type  
+instance HasLogger D E
+instance Has Logger D E
 
 -- Perhaps surprisingly, typeclass definitions are allowed in signatures,
 -- methods and all. The corresponding definitions in the implementation
 -- modules must match exactly.
-class HasLogger e d | e -> d where
+class HasLogger d e | e -> d where
     logger :: e -> String -> d ()
 
-data D :: Type -> Type  
-data E :: Type  
-instance HasLogger E D
+newtype Logger m = Logger { runLogger :: Int -> String -> m () }
 

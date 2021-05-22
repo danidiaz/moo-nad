@@ -13,17 +13,20 @@ tests =
     "All"
     [ 
         let test = do
-                ref <- newIORef "" 
-                componentRef <- newIORef "" 
+                loggerRef <- newIORef "" 
+                counterRef <- newIORef 0
                 let env = EnvIO {
-                            _logger = writeIORef ref,
-                            _loggerComponent = Logger (\_ -> writeIORef componentRef)
+                              _logger = \_ -> writeIORef loggerRef
+                            , _counter = Counter {
+                                   askCounter = readIORef counterRef
+                                 , incCounter = \v -> modifyIORef counterRef (+v)
+                                 }
                         }
                 runReaderT logic env
-                msg <- readIORef ref
+                msg <- readIORef loggerRef
                 assertEqual "log output" "this is a message" msg
-                componentMsg <- readIORef componentRef
-                assertEqual "component log output" "this is another message" componentMsg
+                counterVal <- readIORef counterRef
+                assertEqual "counter output" 1 counterVal
          in testCase "run logic" $ test
     ]
 

@@ -15,22 +15,25 @@ type M = ReaderT EnvIO IO
 type E = EnvIO
 
 class HasLogger d e | e -> d where
-    logger :: e -> String -> d ()
+    logger :: e -> Int -> String -> d ()
 
-newtype Logger m = Logger { runLogger :: Int -> String -> m () }
+data Counter d = Counter { 
+        askCounter :: d Int,
+        incCounter :: Int -> d ()
+    }
 
 type D = IO
 liftD :: D x -> M x
 liftD = lift
 
 data EnvIO = EnvIO {
-        _logger :: String -> IO (),
-        _loggerComponent :: Logger IO
+        _logger :: Int -> String -> IO (),
+        _counter :: Counter IO
     }
 
 instance HasLogger D E where
     logger (EnvIO {_logger}) = _logger
 
-instance Has Logger D E where
-    dep (EnvIO {_loggerComponent}) = _loggerComponent
+instance Has Counter D E where
+    dep (EnvIO {_counter}) = _counter
 

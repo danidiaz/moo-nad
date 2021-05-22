@@ -12,13 +12,16 @@ import Control.Monad.Dep.Has
 data D :: Type -> Type  
 data E :: Type  
 instance HasLogger D E
-instance Has Logger D E
+instance Has Counter D E
 
 -- Perhaps surprisingly, typeclass definitions are allowed in signatures,
 -- methods and all. The corresponding definitions in the implementation
 -- modules must match exactly.
 class HasLogger d e | e -> d where
-    logger :: e -> String -> d ()
+    logger :: e -> Int -> String -> d ()
 
-newtype Logger m = Logger { runLogger :: Int -> String -> m () }
+data Counter d = Counter { 
+        askCounter :: d Int,
+        incCounter :: Int -> d ()
+    }
 

@@ -7,5 +7,8 @@ import Moo.Prelude
 
 logic :: M ()
 logic = do
-    self logger "this is a message"
-    call runLogger 7 "this is another message"
+    self logger 7 "this is a message"
+    c <- call askCounter
+    if c == 0 
+        then call incCounter 1
+        else pure ()

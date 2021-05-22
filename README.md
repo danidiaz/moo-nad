@@ -19,7 +19,7 @@ instead of something like
         e <- ask
         liftIO $ logger e 7 "this is a message"
 
-(Yes, I'm aware that it isn't *that* big of a hassle, and that solving it might
+(Yes, I'm aware that this isn't *that* big of a hassle, and that solving it might
 overcomplicate other things. But bear with me.)
 
 The question received [this

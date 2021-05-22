@@ -10,20 +10,20 @@ description:
    
   We often want our program logic to be polymorphic over both the
   concrete monad and the environment. One common solution is to
-  abstract the monad using MonadReader, and abstract the environment
-  using HasX-style typeclasses.
+  abstract the monad using @MonadReader@, and abstract the environment
+  using @HasX@-style typeclasses.
    
   One minor annoyance though is that invoking the function in the 
   environment is often a bit cumbersome: you have to ask
   the environment for the function, and then lift the result of
   the function back into the reader-like monad.
     
-  This library supports a special twist on ReaderT-record-of-functions                     style: instead of depending only on typeclasses for abstraction, 
+  This library supports a special twist on @ReaderT@-record-of-functions                     style: instead of depending only on typeclasses for abstraction, 
   we also use a module signature. This comes with different tradeoffs.
    
   One benefit is that we support a simpler way of invoking functions from the
-  environment, using a helper that takes care of asking the environment and
-  lifting function results, and which works uniformly for functions of any
+  environment, using a helper that takes care of both asking the environment
+  and lifting function results, and which works uniformly for functions of any
   arity.
 
 author:             Daniel Diaz Carrete

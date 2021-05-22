@@ -45,10 +45,10 @@ That signature is called [`Moo`](./lib/Moo.hsig), and the module [`Moo.Prelude`]
 
 ## How to use this library to write monad-and-environment-polymorphic program logic?
 
-This is an alternative to the usual way of abtracting the monad using [mtl](http://hackage.haskell.org/package/mtl).
+This is an alternative to the usual way of asbtracting the monad using [mtl](http://hackage.haskell.org/package/mtl).
 
 Put program logic into indefinite libraries which depend
-on the `Moo` module signature. Import `Moo.Prelude` for the call helpers.
+on the [`Moo` module signature](./lib/Moo.hsig). Import [`Moo.Prelude`](./lib/Moo/Prelude.hs) for the call helpers.
 
 You'll likely need to expand the base `Moo` signature through [signature
 merging](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson3-signature-merging) to require extra capabilities from the monad and/or the environment.

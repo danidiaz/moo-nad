@@ -11,8 +11,16 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-
-module Moo.Prelude (M, E, D, self, call) where
+-- | Invocation helpers for functions that have effects in a monad 'D' and are carried
+-- in the environment 'E' of a reader-like monad 'M'.
+module Moo.Prelude (
+    self,
+    call,
+    -- * Re-exports from Moo
+    M,
+    E,
+    D 
+) where
 
 import Moo
 import Data.Kind

@@ -53,7 +53,7 @@ on the [`Moo` module signature](./lib/Moo.hsig). Import [`Moo.Prelude`](./lib/Mo
 You'll likely need to expand the base `Moo` signature through [signature
 merging](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson3-signature-merging) to require extra capabilities from the monad and/or the environment.
 
-(*Note*: this approach is less fine-grained with respect to constraints than
+(**Note**: this approach is less fine-grained with respect to constraints than
 the MTL one. When using MTL each individual function can have different
 constraints. But here, functions from modules that import the same version of
 `Moo` will share the same constraints. If you want constraint differentiation,

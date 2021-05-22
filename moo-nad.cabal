@@ -3,28 +3,29 @@ name:               moo-nad
 version:            0.1.0.0
 
 synopsis:           Invocation helpers for the ReaderT-record-of-functions style.
-description:        Using a record-of-functions as the environment of some 
-                    reader-like monad is a common way of structuring Haskell 
-                    applications, somewhat resembling dependency injection in OOP.
-                    .
-                    We often want our program logic to be polymorphic over both the
-                    concrete monad and the environment. One common solution is to
-                    abstract the monad using MonadReader and abstract the environment
-                    using HasX-style typeclasses.
-                    .
-                    One minor annoyance though is that invoking the function in the 
-                    environment is often a bit cumbersome: you have to ask
-                    the environment for the function, and then lift the result of
-                    the function back into the reader-like monad.
-                    . 
-                    This library supports a special twist on ReaderT-record-of-functions                     style: instead of depending only on typeclasses for abstraction, 
-                    we also use a module signature. This comes with different tradeoffs.
-                    .
-                    One benefit is that we support a simpler
-                    way of invoking functions from the environment, by 
-                    using an invocation helper that takes care of asking 
-                    the environment and lifting function results, and which 
-                    works uniformly for functions of any arity.
+description:        
+    Using a record-of-functions as the environment of some 
+    reader-like monad is a common way of structuring Haskell 
+    applications, somewhat resembling dependency injection in OOP.
+    .
+    We often want our program logic to be polymorphic over both the
+    concrete monad and the environment. One common solution is to
+    abstract the monad using MonadReader and abstract the environment
+    using HasX-style typeclasses.
+    .
+    One minor annoyance though is that invoking the function in the 
+    environment is often a bit cumbersome: you have to ask
+    the environment for the function, and then lift the result of
+    the function back into the reader-like monad.
+    . 
+    This library supports a special twist on ReaderT-record-of-functions                     style: instead of depending only on typeclasses for abstraction, 
+    we also use a module signature. This comes with different tradeoffs.
+    .
+    One benefit is that we support a simpler
+    way of invoking functions from the environment, by 
+    using an invocation helper that takes care of asking 
+    the environment and lifting function results, and which 
+    works uniformly for functions of any arity.
 author:             Daniel Diaz Carrete
 maintainer:         diaz_carrete@yahoo.com
 

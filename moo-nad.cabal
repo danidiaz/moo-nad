@@ -2,7 +2,30 @@ cabal-version:      3.0
 name:               moo-nad
 version:            0.1.0.0
 
-author:             Daniel Diaz
+synopsis:           Invocation helpers for the ReaderT-record-of-functions style.
+description:        Using a record-of-functions as the environment of some 
+                    reader-like monad is a common way of structuring Haskell 
+                    applications, somewhat resembling dependency injection in OOP.
+                    .
+                    We often want our program logic to be polymorphic over both the
+                    concrete monad and the environment. One common solution is to
+                    abstract the monad using MonadReader and abstract the environment
+                    using HasX-style typeclasses.
+                    .
+                    One minor annoyance though is that invoking the function in the 
+                    environment is often a bit cumbersome: you have to ask
+                    the environment for the function, and then lift the result of
+                    the function back into the reader-like monad.
+                    . 
+                    This library supports a special twist on ReaderT-record-of-functions                     style: instead of depending only on typeclasses for abstraction, 
+                    we also use a module signature. This comes with different tradeoffs.
+                    .
+                    One benefit is that we support a simpler
+                    way of invoking functions from the environment, by 
+                    using an invocation helper that takes care of asking 
+                    the environment and lifting function results, and which 
+                    works uniformly for functions of any arity.
+author:             Daniel Diaz Carrete
 maintainer:         diaz_carrete@yahoo.com
 
 extra-source-files: CHANGELOG.md
@@ -11,6 +34,7 @@ common common
     build-depends:    base ^>= 4.15.0.0,
                       mtl  ^>= 2.2,
                       dep-t ^>= 0.4.4
+    default-language: Haskell2010
 
 -- Indefinite library which provides an invocation helper over some abstract
 -- readerlike monad carrying a record-of-functions.
@@ -20,29 +44,28 @@ library
     exposed-modules:  Moo.Prelude
     build-depends:    
     hs-source-dirs:   lib
-    default-language: Haskell2010
 
 -- Example indefinite program logic.
 library example-logic-that-logs
     import:           common
+    -- The Moo signature is enriched locally through signature merging.
     signatures:       Moo
     exposed-modules:  LogicThatLogs
     build-depends:   
                       moo-nad
     hs-source-dirs:   lib-example-logic-that-logs
-    default-language: Haskell2010
 
--- Example implementation library.
+-- Example library that implements the Moo signature.
 library example-impl
     import:           common
     exposed-modules:  Moo
+    -- Notice that we don't depend explicitly on the Moo signature.
     build-depends:    
                       transformers ^>= 0.5
     hs-source-dirs:   lib-example-impl
-    default-language: Haskell2010
 
 -- The tests put together the moo-nad library, the example indefinite package
--- with the program logic, and the sublibrary with a possible implementation.
+-- with the program logic, and the sublibrary carrying the implementation.
 test-suite tests
     import:           common
     type:             exitcode-stdio-1.0
@@ -54,4 +77,3 @@ test-suite tests
       moo-nad,
       example-logic-that-logs,
       example-impl
-    default-language: Haskell2010

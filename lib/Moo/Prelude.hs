@@ -24,7 +24,7 @@ type Call :: Type -> Constraint
 class Call curried where
     type LiftedD curried :: Type
     -- | Given a way of extracting from the environment 'E' a @curried@
-    -- function that ends in a 'D' action, lift the 'D'-function into the main
+    -- function that ends in a 'D' action, lift the @curried@ 'D'-function into the main
     -- monad 'M'.
     self :: (E -> curried) -> LiftedD curried
 
@@ -42,10 +42,12 @@ instance Call curried' => Call (a -> curried') where
 
 -- | Given an environment 'E' that 'Control.Monad.Dep.Has' a @component@, and a
 -- way of extracting from the @component@ a @curried@ function that ends in a
--- 'D' action, lift the 'D'-function into the main monad 'M'.
+-- 'D' action, lift the @curried@ 'D'-function into the main monad 'M'.
 --
 -- The extractor must be monomorphic on @component@, so that the intended
--- instance of 'Control.Monad.Dep.Has' is found. The typical case is for
+-- instance of 'Control.Monad.Dep.Has' is found. 
+--
+-- The typical case is for
 -- @component@ to be a record and for the extractor to be a field accessor.
 call :: forall component curried . (Has component D E, Call curried) => (component D -> curried) -> LiftedD curried
 call extractor = self (extractor . dep @component)

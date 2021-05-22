@@ -1,4 +1,4 @@
--- | Example of program logic in the ReaderT-record-of-functions style, that
+-- | Example of program logic in the ReaderT-record-of-functions style that
 -- abstracts away the concrete reader-like monad by depending on a module
 -- signature.
 module LogicThatLogs where

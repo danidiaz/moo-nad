@@ -16,7 +16,7 @@ instead of something like
 
     logic :: ReaderT EnvWithLogger IO ()
     logic = do
-        env <- ask
+        e <- ask
         liftIO $ logger e 7 "this is a message"
 
 (Yes, I'm aware that it isn't *that* big of a hassle, and that solving it might

@@ -18,8 +18,8 @@ import Control.Monad.Dep.Has
 
 data D :: Type -> Type  
 data E :: Type  
-instance HasLogger D E
-instance Has Counter D E
+instance HasLogger D E -- this wasn't in the base Moo signature
+instance Has Counter D E -- this wasn't, either
 
 -- A typeclass for extracting some capability from an environment.
 --

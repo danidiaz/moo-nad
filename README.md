@@ -5,7 +5,7 @@ question](https://stackoverflow.com/questions/61642492/simplifying-the-invocatio
 I asked how to simplify the invocation of functions stored in a `ReaderT`
 environment.
 
-For example, when invoking a [`Int -> String -> _ ()`](./lib-example-logic-that-logs/LogicThatLogs.hs) logging function from the [environment](./lib-example-logic-that-logs/Moo.hsig), I would
+For example, when invoking a `Int -> String -> _ ()` logging function from the environment, I would
 like to simply be able to write:
 
     logic :: ReaderT EnvWithLogger IO ()
@@ -19,11 +19,12 @@ instead of something like
         env <- ask
         liftIO $ logger e 7 "this is a message"
 
-(Yes, I'm aware that it's not *that* big of a hassle, and that solving it might
+(Yes, I'm aware that it isn't *that* big of a hassle, and that solving it might
 overcomplicate other things. But bear with me.)
 
-I received [this answer](https://stackoverflow.com/a/61642757/1364288), which
-worked like a charm. The answer also included the following comment:
+The question received [this
+answer](https://stackoverflow.com/a/61642757/1364288), which worked like a
+charm. The answer also included the following comment:
 
 > Implementing variadics with type classes is generally frowned upon because of
 > how fragile they are, but it works well here because the RIO type provides a
@@ -47,15 +48,15 @@ That signature is called [`Moo`](./lib/Moo.hsig), and the module [`Moo.Prelude`]
 This is an alternative to the usual way of abtracting the monad using [mtl](http://hackage.haskell.org/package/mtl).
 
 Put program logic into indefinite libraries which depend
-on the `Moo` module signature. Import 'Moo.Prelude' for the call helpers.
+on the `Moo` module signature. Import `Moo.Prelude` for the call helpers.
 
-You'll likely need to expand the base 'Moo` signature through [signature
+You'll likely need to expand the base `Moo` signature through [signature
 merging](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson3-signature-merging) to require extra capabilities from the monad and/or the environment.
 
 (Notice that this approach is less fine-grained with constraints than the MTL
 one. When using MTL each function can have different constraints, while in this
-approach constraints are declared through signature merging: modules that
-import the same version of `Moo` share the same constraints. If you want
+approach constraints are declared through signature merging, and modules that
+import the same version of `Moo` will share the same constraints. If you want
 constraint differentiation, you'll need to create more compilation units with
 different "enriched" versions of `Moo`.)
 
@@ -63,7 +64,7 @@ You'll eventually need to write an implementation library that gives concrete in
 
 In your executable, depend on both your program logic and the implementation library. The magic of [mixing matching](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson2-signatures) will take place, and you'll end up with a concrete version of your logic.
 
-## So how does an actual example look like?
+## Very well, but how does an actual example look like?
 
 - See the [example-logic-that-logs](./lib-example-logic-that-logs) internal library for an example of [abstract program logic](./lib-example-logic-that-logs/LogicThatLogs.hs) that imports an [enriched](./lib-example-logic-that-logs/Moo.hsig) version of `Moo`. 
 

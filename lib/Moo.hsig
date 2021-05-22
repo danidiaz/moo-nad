@@ -1,23 +1,32 @@
 {-# LANGUAGE KindSignatures, MultiParamTypeClasses #-}
--- | A signature for reader-like monads carrying a record-of-functions as
+-- | A module signature for reader-like monads carrying a record-of-functions as
 -- environment.
+--
+-- To be useful for writing indefinite code, it should be expanded through "signature merging"
+-- to require extra instances for the main monad 'M' (like MonadIO or MonadUnliftIO) and/or
+-- the environment type 'E' (like some HasX typeclass).
+--
+-- https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson3-signature-merging
 signature Moo where
 
 import Control.Monad
 import Control.Monad.Reader
 import Data.Kind
 
--- | A readerlike monad.
+-- | A reader-like monad.
 data M :: Type -> Type
 instance Functor M
 instance Applicative M
 instance Monad M
+instance MonadReader E M
 
 -- | The monad environment.
 data E :: Type
-instance MonadReader E M
 
 -- | The monad in which the functions in the environment have their effects.
+--
+-- We don't require Functor, Applicative or Monad from 'D' because the 
+-- plan is to always lift 'D' values to 'M' as soon as they're obtained.
 data D :: Type -> Type
 
 -- | Lifts an effects from the secondary monad 'D' into 'M'.

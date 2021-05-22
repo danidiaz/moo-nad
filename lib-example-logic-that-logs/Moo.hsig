@@ -1,9 +1,16 @@
 {-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FunctionalDependencies #-}
--- | Because the logic in this sub-library needs to know how to perform logging,
---   we expand the signature through signature merging, defining a HasLogger
---   typeclass and demanding that the environment has a suitable instance.
+-- | The logic in this sub-library needs to know how to perform logging,
+-- and use a counter
+-- 
+-- To allow for that, we expand the signature through signature merging, 
+-- defining a 'HasLogger' typeclass and demanding that the environment 'E'
+-- has an instance.
+--
+-- We also define a 'Counter' component (basically a record-of-functions polymorphic on 
+-- the base monad) and tie it to the environment 'E' using the generic Has class from 
+-- Control.Monad.Dep.Has.
 signature Moo where
 
 import Data.Kind
@@ -14,12 +21,28 @@ data E :: Type
 instance HasLogger D E
 instance Has Counter D E
 
--- Perhaps surprisingly, typeclass definitions are allowed in signatures,
+-- A typeclass for extracting some capability from an environment.
+--
+-- Program logic invokes should invoke its method using "Moo.Prelude.self".
+--
+-- Typeclass definitions are allowed in signatures,
 -- methods and all. The corresponding definitions in the implementation
 -- modules must match exactly.
+--
+-- The typeclass could also have been imported from another package.
 class HasLogger d e | e -> d where
     logger :: e -> Int -> String -> d ()
 
+-- A component is a record-of-functions parameterized by the effect monad 
+-- used by the functions.
+--
+-- Components are tied to the environment using the "Control.Monad.Dep.Has.Has" typeclass,
+-- and program logic should invoke their functions using "Moo.Prelude.call".
+--
+-- Datatype definitions are allowed in signatures. The corresponding definitions in
+-- the implementation modules must match exactly.
+--
+-- The datatype could also have been imported from another package.
 data Counter d = Counter { 
         askCounter :: d Int,
         incCounter :: Int -> d ()

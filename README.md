@@ -45,7 +45,7 @@ That signature is called [`Moo`](./lib/Moo.hsig), and the module [`Moo.Prelude`]
 
 ## How to use this library to write monad-and-environment-polymorphic program logic?
 
-This is an alternative to the usual way of asbtracting the monad using [mtl](http://hackage.haskell.org/package/mtl).
+This is an alternative to the usual way of abstracting the monad using [mtl](http://hackage.haskell.org/package/mtl).
 
 Put program logic into indefinite libraries which depend
 on the [`Moo` module signature](./lib/Moo.hsig). Import [`Moo.Prelude`](./lib/Moo/Prelude.hs) for the call helpers.
@@ -53,12 +53,12 @@ on the [`Moo` module signature](./lib/Moo.hsig). Import [`Moo.Prelude`](./lib/Mo
 You'll likely need to expand the base `Moo` signature through [signature
 merging](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson3-signature-merging) to require extra capabilities from the monad and/or the environment.
 
-(Notice that this approach is less fine-grained with constraints than the MTL
-one. When using MTL each function can have different constraints, while in this
-approach constraints are declared through signature merging, and modules that
-import the same version of `Moo` will share the same constraints. If you want
-constraint differentiation, you'll need to create more compilation units with
-different "enriched" versions of `Moo`.)
+(*Note*: this approach is less fine-grained with respect to constraints than
+the MTL one. When using MTL each individual function can have different
+constraints. But here, functions from modules that import the same version of
+`Moo` will share the same constraints. If you want constraint differentiation,
+you'll need to create separate compilation units with different "enriched"
+versions of `Moo`.)
 
 You'll eventually need to write an implementation library that gives concrete instantiations for the monad and the environment.
 
@@ -72,7 +72,7 @@ In your executable, depend on both your program logic and the implementation lib
 
 - The [test suite](./test/tests.hs) creates an actual concrete environment and runs the program logic with it.
 
-Because we are using Backpack, we need to look how everything is wired together
+Because we are using Backpack, we need to look at how everything is wired together
 in the [cabal file](./moo-nad.cabal). Notice in particular how: 
 
 - The program logic depends on `moo-nad` but *not* on the implementation.
@@ -83,5 +83,7 @@ in the [cabal file](./moo-nad.cabal). Notice in particular how:
 
 ## caveat emptor
 
-At the end of the day, this method might involve too much ceremony to be practical. "caveat emptor" and all that. Feedback welcome. 
+At the end of the day, this method might involve too much ceremony to be practical. 
+
+Feedback welcome. 
 

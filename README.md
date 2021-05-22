@@ -43,7 +43,7 @@ signature](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/separa
 That signature is called [`Moo`](./lib/Moo.hsig), and the module [`Moo.Prelude`](./lib/Moo/Prelude.hs) provides the
 `self` and `call` helper methods.
 
-## How to use this library to write monad-and-environment-polymorphic program logic?
+## How to use this library to write program logic polymorphic on the monad and the environment?
 
 This is an alternative to the usual way of abstracting the monad using [mtl](http://hackage.haskell.org/package/mtl).
 

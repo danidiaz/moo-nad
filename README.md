@@ -77,7 +77,7 @@ in the [cabal file](./moo-nad.cabal). Notice in particular how:
 
 - The program logic depends on `moo-nad` but *not* on the implementation.
 
-- The implementation *doesn't* depend on `moo-nad`. Implementations in Backpack don't depend on the singatures they implement.
+- The implementation *doesn't* depend on `moo-nad`. Implementations in Backpack don't depend on the signatures they implement.
 
 - The test suite depends on the program logic and the implementation.
 

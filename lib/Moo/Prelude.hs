@@ -11,8 +11,8 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE ScopedTypeVariables #-}
--- | Invocation helpers for functions that have effects in a monad 'D' and are carried
--- in the environment 'E' of a reader-like monad 'M'.
+-- | Invocation helpers for functions with effects in a monad 'D' and which are
+-- stored in the environment 'E' of a reader-like monad 'M'.
 module Moo.Prelude (
     self,
     call,
@@ -54,7 +54,7 @@ instance Call curried' => Call (a -> curried') where
 -- 'M'.
 --
 -- The extractor must be monomorphic on the @component@, so that the intended
--- instance of 'Control.Monad.Dep.Has' is found. 
+-- instance of 'Control.Monad.Dep.Has' is picked. 
 --
 -- The typical case is for the @component@ to be a parameterized record and for
 -- the extractor to be a field accessor.

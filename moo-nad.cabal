@@ -1,6 +1,6 @@
 cabal-version:      3.0
 name:               moo-nad
-version:            0.1.0.0
+version:            0.1.0.1
 
 synopsis:           Invocation helpers for the ReaderT-record-of-functions style.
 description:
@@ -18,7 +18,8 @@ description:
   the environment for the function, and then lift the result of
   the function back into the reader-like monad.
     
-  This library supports a special twist on @ReaderT@-record-of-functions                     style: instead of depending only on typeclasses for abstraction, 
+  This library supports a special twist on @ReaderT@-record-of-functions                     
+  style: instead of depending only on typeclasses for abstraction, 
   we also use a module signature. This comes with different tradeoffs.
    
   One benefit is that we support a simpler way of invoking functions from the
@@ -38,7 +39,7 @@ common common
     default-language: Haskell2010
 
 -- Indefinite library which provides an invocation helper over some abstract
--- readerlike monad carrying a record-of-functions.
+-- readerlike monad which carries a record-of-functions.
 library
     import:           common
     signatures:       Moo

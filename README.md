@@ -43,7 +43,7 @@ signature](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/separa
 That signature is called [`Moo`](./lib/Moo.hsig), and the module [`Moo.Prelude`](./lib/Moo/Prelude.hs) provides the
 `self` and `call` helper methods.
 
-## How to use this library to write program logic polymorphic on the monad and the environment?
+## How to use this library to write program logic that is polymorphic on the monad and the environment?
 
 This is an alternative to the usual way of abstracting the monad using [mtl](http://hackage.haskell.org/package/mtl).
 
@@ -64,7 +64,7 @@ You'll eventually need to write an implementation library that gives concrete in
 
 In your executable, depend on both your program logic and the implementation library. The magic of [mixing matching](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson2-signatures) will take place, and you'll end up with a concrete version of your logic.
 
-## Very well, but how does an actual example look like?
+## Very well; how does an actual example look like?
 
 - See the [example-logic-that-logs](./lib-example-logic-that-logs) internal library for an example of [abstract program logic](./lib-example-logic-that-logs/LogicThatLogs.hs) that imports an [enriched](./lib-example-logic-that-logs/Moo.hsig) version of `Moo`. 
 

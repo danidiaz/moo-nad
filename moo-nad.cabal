@@ -1,6 +1,6 @@
 cabal-version:      3.0
 name:               moo-nad
-version:            0.1.0.1
+version:            0.1.0.2
 
 synopsis:           Invocation helpers for the ReaderT-record-of-functions style.
 description:
@@ -31,8 +31,8 @@ license:            BSD-3-Clause
 license-file:       LICENSE
 author:             Daniel Diaz Carrete
 maintainer:         diaz_carrete@yahoo.com
-
-extra-source-files: CHANGELOG.md
+category:           Control
+extra-source-files: CHANGELOG.md, README.md
 
 common common
     build-depends:    base ^>= 4.15.0.0,

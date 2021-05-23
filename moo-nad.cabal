@@ -27,6 +27,8 @@ description:
   and lifting function results, and which works uniformly for functions of any
   arity.
 
+license:            BSD-3-Clause
+license-file:       LICENSE
 author:             Daniel Diaz Carrete
 maintainer:         diaz_carrete@yahoo.com
 

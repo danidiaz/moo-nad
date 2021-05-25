@@ -5,16 +5,16 @@ question](https://stackoverflow.com/questions/61642492/simplifying-the-invocatio
 I asked how to simplify the invocation of functions stored in a `ReaderT`
 environment.
 
-For example, when invoking a `Int -> String -> _ ()` logging function from the environment, I would
+For example, when invoking a `Int -> String -> ReaderT Env ()` logging function from the environment, I would
 like to simply be able to write:
 
-    logic :: ReaderT EnvWithLogger IO ()
+    logic :: ReaderT Env IO ()
     logic = do
         self logger 7 "this is a message"
 
 instead of something like
 
-    logic :: ReaderT EnvWithLogger IO ()
+    logic :: ReaderT Env IO ()
     logic = do
         e <- ask
         liftIO $ logger e 7 "this is a message"
@@ -40,44 +40,51 @@ using a typeclass-only approach, I turned to the solution explored in the
 current repo: *abstract the monad and the environment using a [module
 signature](https://downloads.haskell.org/ghc/latest/docs/html/users_guide/separate_compilation.html#module-signatures)*.
 
-That signature is called [`Moo`](./lib/Moo.hsig), and the module [`Moo.Prelude`](./lib/Moo/Prelude.hs) provides the
-`self` and `call` helper methods.
+That signature is called `Moo`, and the module `Moo.Prelude` provides the
+`self` and `call` helpers.
 
 ## How to use this library to write program logic that is polymorphic on the monad and the environment?
 
-This is an alternative to the usual way of abstracting the monad using [mtl](http://hackage.haskell.org/package/mtl).
+This is an alternative to the usual way of abstracting over the monad using
+[mtl](http://hackage.haskell.org/package/mtl).
 
-Put program logic into indefinite libraries which depend
-on the [`Moo` module signature](./lib/Moo.hsig). Import [`Moo.Prelude`](./lib/Moo/Prelude.hs) for the call helpers.
+First, create a library for your program logic, and make it depend on
+**moo-nad** (which means that the new library will be indefinite). Import
+`Moo.Prelude` in your modules.
 
 You'll likely need to expand the base `Moo` signature through [signature
-merging](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson3-signature-merging) to require extra capabilities from the monad and/or the environment.
+merging](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson3-signature-merging)
+to demand additional capabilities from the monad and/or the environment. This
+means that your library will have its own `Moo.hsig` with extra declarations.
 
-(**Note**: this approach is less fine-grained with respect to constraints than
+You'll also need to write an implementation library that gives concrete
+instantiations for the monad and the environment.
+
+In your executable or test suite, depend on both your program logic and the implementation library. The magic of [mixing matching](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson2-signatures) will take place, and you'll end up with a concrete version of your logic.
+
+**Note**: this approach is less fine-grained with respect to constraints than
 the MTL one. When using MTL each individual function can have different
 constraints. But here, functions from modules that import the same version of
 `Moo` will share the same constraints. If you want constraint differentiation,
-you'll need to create separate compilation units with different "enriched"
-versions of `Moo`.)
+you'll need to create separate libaries units with different "enriched"
+versions of `Moo`.
 
-You'll eventually need to write an implementation library that gives concrete instantiations for the monad and the environment.
+## Yeah ok, how does an actual example look like?
 
-In your executable, depend on both your program logic and the implementation library. The magic of [mixing matching](https://github.com/danidiaz/really-small-backpack-example/tree/master/lesson2-signatures) will take place, and you'll end up with a concrete version of your logic.
+- See the **example-logic-that-logs** internal library for an example of abstract program logic that imports an enriched version of `Moo`. 
 
-## Very well; how does an actual example look like?
+- See also the **example-impl** internal library that implements the `Moo` signature.
 
-- See the [example-logic-that-logs](./lib-example-logic-that-logs) internal library for an example of [abstract program logic](./lib-example-logic-that-logs/LogicThatLogs.hs) that imports an [enriched](./lib-example-logic-that-logs/Moo.hsig) version of `Moo`. 
+- The test suite creates an environment and runs the program logic with it.
 
-- See also the [example-impl](./lib-example-impl) internal library that implements the `Moo` signature.
-
-- The [test suite](./test/tests.hs) creates an actual concrete environment and runs the program logic with it.
+[example program](https://raw.githubusercontent.com/danidiaz/moo-nad/main/moo-nad.svg)
 
 Because we are using Backpack, we need to look at how everything is wired together
-in the [cabal file](./moo-nad.cabal). Notice in particular how: 
+in the cabal file. Notice in particular how: 
 
-- The program logic depends on `moo-nad` but *not* on the implementation.
+- The program logic depends on **moo-nad** but *not* on the implementation.
 
-- The implementation *doesn't* depend on `moo-nad`. Implementations in Backpack don't depend on the signatures they implement.
+- The implementation *doesn't* depend on **moo-nad**. Implementations in Backpack don't depend on the signatures they implement.
 
 - The test suite depends on the program logic and the implementation.
 

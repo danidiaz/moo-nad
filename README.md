@@ -66,7 +66,7 @@ In your executable or test suite, depend on both your program logic and the impl
 the MTL one. When using MTL each individual function can have different
 constraints. But here, functions from modules that import the same version of
 `Moo` will share the same constraints. If you want constraint differentiation,
-you'll need to create separate libaries units with different "enriched"
+you'll need to create separate libaries with different "enriched"
 versions of `Moo`.
 
 ## Yeah ok, how does an actual example look like?

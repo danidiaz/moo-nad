@@ -6,13 +6,13 @@ I asked how to simplify the invocation of functions stored in a `ReaderT`
 environment.
 
 For example, when invoking a `Int -> String -> ReaderT Env ()` logging function from the environment, I would
-like to simply be able to write:
+like to be able to write:
 
     logic :: ReaderT Env IO ()
     logic = do
         self logger 7 "this is a message"
 
-instead of something like
+instead of the more verbose
 
     logic :: ReaderT Env IO ()
     logic = do

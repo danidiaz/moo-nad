@@ -81,6 +81,7 @@ in the [cabal file](./moo-nad.cabal). Notice in particular how:
 
 - The test suite depends on the program logic and the implementation.
 
+
 ## caveat emptor
 
 At the end of the day, this method might involve too much ceremony to be practical. 

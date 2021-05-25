@@ -32,8 +32,12 @@ license-file:       LICENSE
 author:             Daniel Diaz Carrete
 maintainer:         diaz_carrete@yahoo.com
 category:           Control
-extra-source-files: CHANGELOG.md, README.md
-
+extra-source-files: 
+    CHANGELOG.md, 
+    README.md,
+    .gitignore
+extra-doc-files:
+    moo-nad.svg
 source-repository    head
     type:     git
     location: https://github.com/danidiaz/moo-nad.git

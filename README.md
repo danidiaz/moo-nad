@@ -49,7 +49,7 @@ This is an alternative to the usual way of abstracting over the monad using
 [mtl](http://hackage.haskell.org/package/mtl).
 
 First, create a library for your program logic, and make it depend on
-**moo-nad** (which means that the new library will be indefinite). Import
+**moo-nad** (making it an indefinite library in the process). Import
 `Moo.Prelude` in your modules.
 
 You'll likely need to expand the base `Moo` signature through [signature

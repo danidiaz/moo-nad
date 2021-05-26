@@ -77,7 +77,7 @@ versions of `Moo`.
 
 - The test suite creates an environment and runs the program logic with it.
 
-![example program](https://raw.githubusercontent.com/danidiaz/moo-nad/main/moo-nad.svg)
+[![moo-nad.png](https://i.postimg.cc/nVNF9g4w/moo-nad.png)](https://postimg.cc/23FRPHX4)
 
 Because we are using Backpack, we need to look at how everything is wired together
 in the cabal file. Notice in particular how: 

@@ -1,5 +1,5 @@
 cabal-version:      3.0
-name:               moo-nad
+name:               moo-nad-x
 version:            0.1.0.2
 
 synopsis:           Invocation helpers for the ReaderT-record-of-functions style.
@@ -48,17 +48,8 @@ common common
                       dep-t ^>= 0.4.4
     default-language: Haskell2010
 
--- Indefinite library which provides an invocation helper over some abstract
--- readerlike monad which carries a record-of-functions.
-library
-    import:           common
-    signatures:       Moo
-    exposed-modules:  Moo.Prelude
-    build-depends:    
-    hs-source-dirs:   lib
-
 -- Example indefinite program logic.
-library example-logic-that-logs
+library example-logic-that-logs-x
     import:           common
     -- The Moo signature is enriched locally through signature merging.
     signatures:       Moo
@@ -68,7 +59,7 @@ library example-logic-that-logs
     hs-source-dirs:   lib-example-logic-that-logs
 
 -- Example library that implements the Moo signature.
-library example-impl
+library example-impl-x
     import:           common
     exposed-modules:  Moo
     -- Notice that we don't depend explicitly on the Moo signature.
@@ -78,7 +69,7 @@ library example-impl
 
 -- The tests put together the moo-nad library, the example indefinite package
 -- with the program logic, and the sublibrary carrying the implementation.
-test-suite tests
+test-suite tests-x
     import:           common
     type:             exitcode-stdio-1.0
     hs-source-dirs:   test
@@ -86,5 +77,5 @@ test-suite tests
     build-depends:    
       tasty           ^>= 1.3.1,
       tasty-hunit     ^>= 0.10.0.2,
-      example-logic-that-logs,
-      example-impl
+      example-logic-that-logs-x,
+      example-impl-x
